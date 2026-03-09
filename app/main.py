@@ -1,5 +1,6 @@
 import logging
 
+from app.rag.ingest import KnowledgeBaseIngestor
 from app.core.logging import configure_logging
 from app.core.settings import settings
 from app.services.chat_service import ChatService
@@ -18,6 +19,16 @@ def main() -> None:
     knowledge_base_service = KnowledgeBaseService()
     documents = knowledge_base_service.list_documents()
     logger.info("Knowledge base documents found: %s", documents)
+    
+    ingestor = KnowledgeBaseIngestor()
+    chunks, result = ingestor.ingest()
+    logger.info("Loaded source documents: %s", result.source_document_count)
+    logger.info("Created chunks: %s", result.chunk_count)
+    
+    if chunks:
+        logger.info("First chunk source: %s", chunks[0].metadata.get("filename"))
+        logger.info("First chunk id: %s", chunks[0].metadata.get("chunk_id"))
+        logger.info("First chunk preview: %s", chunks[0].page_content[:200])
     
     chat_service = ChatService()
     
