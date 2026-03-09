@@ -24,6 +24,16 @@ The goal of this project is to build a healthcare-related knowledge assistant th
 - Pytest
 - Pydantic Settings
 
+## Sample knowledge base
+
+The project includes a small healthcare-oriented knowledge base with sample documents covering:
+- patient visit preparation,
+- privacy and data protection,
+- appointments and referrals,
+- clinic FAQ.
+
+These documents will be used in the next steps to build the RAG pipeline.
+
 ## Current status
 
 Commit 1:
