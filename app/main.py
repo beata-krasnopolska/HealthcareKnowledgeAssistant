@@ -1,5 +1,7 @@
 import logging
 
+from app.rag.retriever import RetrieverService
+from app.rag.vectorstore import VectorStoreService
 from app.rag.ingest import KnowledgeBaseIngestor
 from app.core.logging import configure_logging
 from app.core.settings import settings
@@ -29,6 +31,27 @@ def main() -> None:
         logger.info("First chunk source: %s", chunks[0].metadata.get("filename"))
         logger.info("First chunk id: %s", chunks[0].metadata.get("chunk_id"))
         logger.info("First chunk preview: %s", chunks[0].page_content[:200])
+        
+    vector_store_service = VectorStoreService()
+    vector_store_service.reset_vector_store()
+    vector_store_service.create_vector_store(chunks)
+    logger.info("Vector store created succesfully")
+    
+    retriever_service = RetrieverService(vector_store_service)
+    
+    retrieval_query = "How can I reschedule an appointment?"
+    logger.info("Testing retriever with query: %s", retrieval_query)
+    retrieved_docs = retriever_service.retrieve(retrieval_query)
+    
+    logger.info("Retriever returned %s documents", len(retrieved_docs))
+    
+    for index, doc in enumerate(retrieved_docs, start=1):
+        logger.info("Retrieved doc %s | filename: %s | chunk_id: %s | preview: %s",
+                    index,
+                    doc.metadata.get("filename"),
+                    doc.metadata.get("chunk_id"),
+                    doc.page_content[:200].replace("\n", " ")
+                    )
     
     chat_service = ChatService()
     

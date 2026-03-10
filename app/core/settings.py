@@ -14,6 +14,7 @@ class Settings:
     vector_store_dir: str = "./data/vector_store"
     log_level: str = "INFO"
     app_name: str = "Healthcare Knowledge Assistant"
+    top_k: int = 3
 
 
 def get_settings() -> Settings:
@@ -24,6 +25,7 @@ def get_settings() -> Settings:
         vector_store_dir=os.getenv("VECTOR_STORE_DIR", "./data/vector_store"),
         log_level=os.getenv("LOG_LEVEL", "INFO"),
         app_name=os.getenv("APP_NAME", "Healthcare Knowledge Assistant"),
+        top_k=int(os.getenv("TOP_K", "3"))
     )
 
 
