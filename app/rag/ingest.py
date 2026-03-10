@@ -45,7 +45,7 @@ class KnowledgeBaseIngestor:
         splited_docs = text_splitter.split_documents(documents)
         
         for index, doc in enumerate(splited_docs):
-            doc.metadata["chunk_index"]= index
+            doc.metadata["chunk_id"]= index
             
         return splited_docs
     
@@ -53,7 +53,7 @@ class KnowledgeBaseIngestor:
         documents = self.load_documents()
         splitted_docs = self.split_documents(documents)
         
-        result  = ChunkingResult(
+        result = ChunkingResult(
             source_document_count=len(documents),
             chunk_count=len(splitted_docs)
         )
