@@ -16,9 +16,9 @@ def test_rag_qa_returns_answer_and_sources(tmp_path: Path):
     retriever_service = RetrieverService(vector_store_service=vector_store_service)
     rag_qa_service = RagQaService(retriever_service=retriever_service)
     
-    answer, retrieved_docs = rag_qa_service.ask("How can I reschedule an appointment?")
+    response = rag_qa_service.ask("How can I reschedule an appointment?")
     
-    assert isinstance(answer, str)
-    assert answer.strip() != ""
-    assert len(retrieved_docs) > 0
-    assert any(doc.metadata.get("filename") == "appointments_and_referrals.md" for doc in retrieved_docs)
+    assert isinstance(response.answer, str)
+    assert response.answer.strip() != ""
+    assert len(response.citations) > 0
+    assert any(citation.filename == "appointments_and_referrals.md" for citation in response.citations)
