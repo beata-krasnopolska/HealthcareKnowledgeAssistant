@@ -2,6 +2,8 @@ import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
+from app.rag.citations import build_citations
+from app.rag.response_models import RagAnswer
 from app.llm.providers import get_chat_model
 from app.rag.context_formatter import format_documents_for_prompt
 from app.rag.retriever import RetrieverService
@@ -41,7 +43,11 @@ class RagQaService:
         ]
         
         response = self.model.invoke(messages)
+        citations = build_citations(retrieved_docs)
         
         logger.info("Generated RAG answer successfully")
-        return response.content, retrieved_docs
+        return RagAnswer(
+            answer = response.content,
+            citations = citations
+        )
         

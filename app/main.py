@@ -1,5 +1,6 @@
 import logging
 
+from app.rag.citations import format_citations
 from app.rag.qa import RagQaService
 from app.rag.vectorstore import VectorStoreService
 from app.rag.ingest import KnowledgeBaseIngestor
@@ -36,17 +37,14 @@ def main() -> None:
     user_question = "How can I reschedule an appointment?"
     logger.info("Asking RAG QA service: %s", user_question)
     
-    answer, retrieved_docs = rag_qa_service.ask(user_question)
+    rag_response = rag_qa_service.ask(user_question)
     
-    logger.info("RAG QA answer: %s", answer)
+    print("\nRAG answer:\n")
+    print(rag_response.answer)
     
-    for index, doc in enumerate(retrieved_docs, start=1):
-        print(
-            f"{index}. file = {doc.metadata.get('filename')}"
-            f"chunk = {doc.metadata.get('chunk_id')}"
-        )
-
-    print(f"{settings.app_name} initialized successfully.")
+    print("\nCitations:\n")
+    print(format_citations(rag_response.citations))
+    
 
 
 if __name__ == "__main__":
