@@ -1,5 +1,6 @@
 import logging
 
+from app.tools.registry import ToolRegistry
 from app.rag.citations import format_citations
 from app.rag.qa import RagQaService
 from app.rag.vectorstore import VectorStoreService
@@ -44,6 +45,14 @@ def main() -> None:
     
     print("\nCitations:\n")
     print(format_citations(rag_response.citations))
+    
+    tool_registry = ToolRegistry()
+    
+    print("\nGlossary tool demo:\n")
+    print(tool_registry.glossary_tool.lookup_term("referral"))
+    
+    print("\nContact lookup tool demo:\n")
+    print(tool_registry.contact_lookup_tool.lookup_department("privacy office"))
     
 
 
