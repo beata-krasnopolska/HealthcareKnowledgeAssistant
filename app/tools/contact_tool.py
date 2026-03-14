@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 class ContactLookupTool:
-    def __init__(self, contacts_path: str = "data/tools/department_contacts.json") -> None:
+    def __init__(self, contacts_path: str = "data/tools/department_contact.json") -> None:
         self.contacts_path = Path(contacts_path)
         
     def _load_contacts(self) -> dict:

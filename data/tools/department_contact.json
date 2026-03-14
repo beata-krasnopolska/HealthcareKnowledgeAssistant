@@ -1,0 +1,22 @@
+{
+  "medical records": {
+    "department": "Medical Records Department",
+    "email": "records@clinic-example.org",
+    "phone": "+1-555-0101"
+  },
+  "privacy office": {
+    "department": "Privacy Office",
+    "email": "privacy@clinic-example.org",
+    "phone": "+1-555-0102"
+  },
+  "appointments": {
+    "department": "Appointments Desk",
+    "email": "appointments@clinic-example.org",
+    "phone": "+1-555-0103"
+  },
+  "billing": {
+    "department": "Billing Department",
+    "email": "billing@clinic-example.org",
+    "phone": "+1-555-0104"
+  }
+}

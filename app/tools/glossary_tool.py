@@ -16,6 +16,8 @@ class GlossaryTool:
         glossary = self._load_glossary()
         normalized_term = term.strip().lower()
         
+        print(f"Looking up glossary term: '{term}' (normalized: '{normalized_term}')")
+        
         if normalized_term in glossary:
             return glossary[normalized_term]
         
